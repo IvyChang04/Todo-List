@@ -5,6 +5,7 @@ import {
     StyleSheet,
     TextInput,
 } from "react-native";
+import { useState, useRef, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useTodoItemContext } from "../context/TodoItemContext";
 import {
@@ -13,9 +14,13 @@ import {
     renameTodoItems,
 } from "../localStorageFunction";
 import ContextMenu from "react-native-context-menu-view";
+import { Feather } from "@expo/vector-icons";
 
 const TodoListItem = ({ todoItem }) => {
     const { todoItems, setTodoItems } = useTodoItemContext();
+    const [renameTitle, setRenameTitle] = useState(todoItem.title);
+    const [renameing, setRenaming] = useState(false);
+    const renameRef = useRef(null);
 
     const handleCheckPress = async () => {
         const updatedTodos = todoItems.map((item) =>
@@ -40,20 +45,40 @@ const TodoListItem = ({ todoItem }) => {
             case "Delete":
                 await handleDeletePress();
                 break;
+
+            case "Rename":
+                handleRenamePress();
+                break;
         }
     };
 
-    const handleItemPress = async (newTitle) => {
+    const handleRenamePress = () => {
+        setRenaming(true);
+    };
+
+    const handleSavePress = async () => {
         const updatedTodos = todoItems.map((item) =>
-            item.title === todoItem.title ? { ...item, title: newTitle } : item
+            item.title === todoItem.title
+                ? { ...item, title: renameTitle }
+                : item
         );
         setTodoItems(updatedTodos);
-        await renameTodoItems(todoItem.title, newTitle);
+        setRenaming(false);
+        await renameTodoItems(todoItem.title, renameTitle);
     };
+
+    useEffect(() => {
+        if (renameing && renameRef.current) {
+            renameRef.current.focus();
+        }
+    }, [renameing]);
 
     return (
         <ContextMenu
-            actions={[{ title: "Delete", systemIcon: "trash.fill" }]}
+            actions={[
+                { title: "Delete", systemIcon: "trash.fill" },
+                { title: "Rename", systemIcon: "pencil" },
+            ]}
             onPress={(event) => {
                 handleMenuPress(event);
             }}
@@ -73,11 +98,21 @@ const TodoListItem = ({ todoItem }) => {
                     ) : null}
                 </TouchableOpacity>
 
-                {/* change to TouchableOpacity so we can click it and rename title*/}
-
-                <TouchableOpacity>
+                {renameing ? (
+                    <>
+                        <TextInput
+                            style={styles.textInput}
+                            value={renameTitle}
+                            onChangeText={(title) => setRenameTitle(title)}
+                            ref={renameRef}
+                        />
+                        <TouchableOpacity onPress={handleSavePress}>
+                            <Feather name="save" size={25} color="black" />
+                        </TouchableOpacity>
+                    </>
+                ) : (
                     <Text style={styles.text}>{todoItem.title}</Text>
-                </TouchableOpacity>
+                )}
             </View>
         </ContextMenu>
     );
@@ -106,5 +141,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: "#314478",
         marginLeft: 20,
+    },
+    textInput: {
+        fontSize: 22,
+        marginLeft: 15,
+        flex: 1,
     },
 });

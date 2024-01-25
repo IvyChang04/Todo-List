@@ -49,11 +49,20 @@ export const deleteTodoItems = async (title) => {
 export const renameTodoItems = async (title, newTitle) => {
     try {
         const storedTodos = await getTodoItems();
-        const updatedTodos = storedTodos.map((item) => {
-            item.title === title ? { ...item, title: newTitle } : item;
-        });
+        console.log(storedTodos);
+        const updatedTodos = storedTodos.map((item) =>
+            item.title === title ? { ...item, title: newTitle } : item
+        );
         await AsyncStorage.setItem("@todoItems", JSON.stringify(updatedTodos));
     } catch (error) {
         console.error("error on renaming item: ", error);
+    }
+};
+
+export const clearLocalStorage = async (key) => {
+    try {
+        await AsyncStorage.removeItem(key);
+    } catch (error) {
+        console.error("Error clearing local storage: ", error);
     }
 };

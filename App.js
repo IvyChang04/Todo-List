@@ -14,14 +14,13 @@ import { getTodoItems } from "./localStorageFunction";
 import Loading from "./customComponents/Loading";
 
 export default function App() {
-    const [todoItems, setTodoItems] = useState(null);
+    const [todoItems, setTodoItems] = useState([]);
 
     useEffect(() => {
         const getCurrentTodos = async () => {
             const currentTodos = await getTodoItems();
             setTodoItems(currentTodos);
         };
-
         getCurrentTodos();
     }, []);
 
