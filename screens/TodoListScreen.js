@@ -9,6 +9,7 @@ const TodoListScreen = () => {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.titleText}>To Do</Text>
             <TodoList todoItem={todoItems} />
             <AddItemButton />
         </View>
@@ -19,9 +20,15 @@ export default TodoListScreen;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "white",
+        backgroundColor: "#EBF3E8",
         flex: 1,
-        paddingTop: 100,
+        paddingTop: 80,
+    },
+    titleText: {
+        fontSize: 42,
+        paddingLeft: 20,
+        marginBottom: 10,
+        fontWeight: "500",
     },
     text: {
         fontSize: 24,

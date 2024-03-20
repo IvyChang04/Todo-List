@@ -88,13 +88,17 @@ const TodoListItem = ({ todoItem }) => {
                     style={[
                         styles.checkButton,
                         !todoItem.checked
-                            ? { borderWidth: 2, borderColor: "black" }
+                            ? { borderWidth: 2, borderColor: "#607274" }
                             : null,
                     ]}
                     onPress={handleCheckPress}
                 >
                     {todoItem.checked ? (
-                        <AntDesign name="checkcircle" size={24} color="black" />
+                        <AntDesign
+                            name="checkcircle"
+                            size={24}
+                            color="#607274"
+                        />
                     ) : null}
                 </TouchableOpacity>
 
@@ -126,7 +130,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: "90%",
         height: 60,
-        backgroundColor: "#a1baff",
+        backgroundColor: "#D2E3C8",
         paddingHorizontal: 20,
         borderRadius: 13,
         alignSelf: "center",
@@ -139,7 +143,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-        color: "#314478",
+        color: "black",
         marginLeft: 20,
     },
     textInput: {

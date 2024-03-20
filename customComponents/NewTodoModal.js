@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         margin: 0,
     },
     container: {
-        backgroundColor: "darkseagreen",
+        backgroundColor: "#EBF3E8",
         height: 200,
         borderTopStartRadius: 20,
         borderTopEndRadius: 20,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 100,
-        backgroundColor: "pink",
+        backgroundColor: "#86A789",
         paddingHorizontal: 20,
     },
     buttonText: {

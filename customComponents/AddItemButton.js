@@ -11,7 +11,7 @@ const AddItemButton = () => {
     return (
         <>
             <TouchableOpacity style={styles.container} onPress={toggleModal}>
-                <AntDesign name="pluscircleo" size={65} color="darkseagreen" />
+                <AntDesign name="pluscircleo" size={65} color="#86A789" />
             </TouchableOpacity>
             <NewTodoModal isVisible={isVisible} toggleModal={toggleModal} />
         </>
