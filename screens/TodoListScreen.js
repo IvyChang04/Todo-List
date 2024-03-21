@@ -20,7 +20,8 @@ export default TodoListScreen;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#EBF3E8",
+        // backgroundColor: "#EBF3E8",
+        backgroundColor: "white",
         flex: 1,
         paddingTop: 80,
     },
